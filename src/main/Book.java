@@ -4,41 +4,65 @@ import java.time.LocalDate;
 
 public class Book {
 	
+	int id;
+	String title;
+	String author;
+	String genre;
+	LocalDate date;
+	Boolean checkOut;
+	
+	
+    public Book(){}
+    
+	public Book(int id, String title, String author, String genre, LocalDate date, Boolean checkOut){
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.genre = genre;
+		this.date = date;
+		this.checkOut = checkOut;
+	}
+	
+
+	
 	public int getId() {
-		return -10;
+		return id;
 	}
 	public void setId(int id) {
+		this.id = id;
 		
 	}
 	public String getTitle() {
-		return "";
+		return this.title;
 	}
 	public void setTitle(String title) {
-		
+		this.title=title;
 	}
 	public String getAuthor() {
-		return "";
+		return this.author;
 	}
 	public void setAuthor(String author) {
+		this.author=author;
 		
 	}
 	public String getGenre() {
-		return "";
+		return this.genre;
 	}
 	public void setGenre(String genre) {
+		this.genre=genre;
 		
 	}
 	public LocalDate getLastCheckOut() {
-		return null;
+		return this.date;
 	}
 	public void setLastCheckOut(LocalDate lastCheckOut) {
-		
+		this.date=lastCheckOut;
 	}
 	public boolean isCheckedOut() {
-		return false;
+		return this.checkOut;
 	}
 	public void setCheckedOut(boolean checkedOut) {
-		
+		this.checkOut=checkedOut;
 	}
 	
 	@Override
@@ -46,16 +70,48 @@ public class Book {
 		/*
 		 * This is supposed to follow the format
 		 * 
-		 * {TITLE} By {AUTHOR}
+		 * {TITLE} BY {AUTHOR}
 		 * 
-		 * Both the title and author are in uppercase.
+		 * ALL MUST BE UPPERCASE.
 		 */
-		return "";
+		return this.title.toUpperCase() + " BY " + this.author.toUpperCase();
 	}
 	public float calculateFees() {
 		/*
 		 * fee (if applicable) = base fee + 1.5 per additional day
+		 *
+		 *
+		 *The fee is calculated as follows, if the book has been checked out for 31 days or more then the
+	     base fee is $10. Then an added $1.50 is owed per day passed 31. To keep it simple, assume
+         today's date is September 15, 2023, for all calculations in the project.
+		 *
+		 *
 		 */
-		return -1000;
+		
+		//EDGECASE!
+			// What if start date > end date? TODO
+			
+
+        LocalDate startDate = this.getLastCheckOut(); // Start date
+        LocalDate endDate = LocalDate.of(2023, 9, 15);  // End date (inclusive)
+        int counter = 0;
+        float fee = 0;
+        
+        while(!startDate.equals(endDate)) {
+        	if(counter == 30) {
+        		fee += 10;
+        	}
+        	else if(counter > 30){
+        		fee += 1.50;
+        	}
+        	
+        	startDate = startDate.plusDays(1);
+        	counter++;
+        }
+
+
+		
+		
+		return fee;
 	}
 }
