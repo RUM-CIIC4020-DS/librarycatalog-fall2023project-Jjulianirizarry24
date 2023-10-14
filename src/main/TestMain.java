@@ -9,19 +9,13 @@ public class TestMain {
 	 * you should be able to generate the same report as report/expected_report.txt
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		//System.out.println("JJ TESTING: \n\n");
-		try {
-			LibraryCatalog lc = new LibraryCatalog();
-			//lc.generateReport();
-			//lc.getBookCatalog()
-			
 
+		try {
 			
+			LibraryCatalog lc = new LibraryCatalog();
 			lc.generateReport();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

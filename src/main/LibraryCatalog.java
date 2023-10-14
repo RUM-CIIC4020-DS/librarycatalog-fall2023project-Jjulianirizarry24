@@ -14,21 +14,32 @@ import data_structures.SinglyLinkedList;
 import interfaces.FilterFunction;
 import interfaces.List;
 
+
+/**
+ * LibraryCatalog class
+ *
+ * @author Jose Irizarry
+ */
+
+
 public class LibraryCatalog {
 	List<Book> catalog = new ArrayList<>();
 	List<User> users = new ArrayList<>();
 	
-		
+	// LibraryCatalog Constructor
 	public LibraryCatalog() throws IOException {
 		catalog = this.getBooksFromFiles();
 		users = this.getUsersFromFiles();
 		
 	}
+	/**
+	 *  Extracts books from a CSV File
+	 *  
+	 *  @return list of books 
+	 */
 	private List<Book> getBooksFromFiles() throws IOException {
 		List<Book> booksFromFiles = new ArrayList<>();
-		
-		
-		
+
 		 try {
 			 	String bookPath = "./data/catalog.csv";
 			 	File file = new File(bookPath);
@@ -40,28 +51,17 @@ public class LibraryCatalog {
 	            while ((line = bufferedReader.readLine()) != null) {    
 	            	
 	                String[] fields = line.split(",");
-
-	                // Process each field as needed
 	                
 	                	Integer tempId= Integer.parseInt(fields[0]);
 	                	String tempTitle = fields[1];
 	                	String tempAuthor = fields[2];
 	                	String tempGenre = fields[3];
 	                	String date = fields[4];
-	                	
-	                	
-	                	//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	                	LocalDate tempDate = LocalDate.parse(date);      
 	                	String boolVal = fields[5];
 	                	
 	                	boolean tempCheck = Boolean.parseBoolean(boolVal);
 	                	Book temp = new Book(tempId, tempTitle, tempAuthor, tempGenre, tempDate, tempCheck);
-//	                	System.out.println(tempId);
-//	                	System.out.println(tempTitle);
-//	                	System.out.println(tempAuthor);
-//	                	System.out.println(tempGenre);
-//	                	System.out.println(tempDate);
-//	                	System.out.println(tempCheck);
 	                	booksFromFiles.add(temp);
 
 	            }
@@ -76,11 +76,15 @@ public class LibraryCatalog {
 		return booksFromFiles;
 	}
 	
+	/**
+	 *  Extracts users from a CSV File
+	 *  
+	 *  @return list of users 
+	 */
+	
 	List<User> getUsersFromFiles() throws IOException {
 		List<User> usersFromFiles = new ArrayList<>();
 		
-		
-
 		 try {
 			 	String userPath = "./data/user.csv";
 			 	File file = new File(userPath);
@@ -100,39 +104,10 @@ public class LibraryCatalog {
 	                String tempName = fields[1];
 	                List<Book> tempList = new ArrayList<>();
 	                
-//	                temp.setId(tempId);
-//	                temp.setName(tempName);
-	                // EDGE CASE 
-	                	//TODO WHAT IF USER HAS A BOOK ON HIS LIST
-	                	//BUT BOOK DOES NOT EXIST? DO WE ADD BOOK?
-	                	//DO WE THROW AN EXCEPTION?
-	                	//DO WE GIVE UP ON OUR CS JOURNEY?
-	                
-	                //TODO Check if this is actually reading
-	                //System.out.print(fields.length);
 	                if(fields.length == 3) {
-	                	
-//	                	System.out.println("OI" + fields[2].length() + "\n");
-//	                	System.out.println(fields[2]);
-//	                	
 	                	
 	                	fields[2] = fields[2].substring(1,fields[2].length()-1);
 	                	
-	                	//if(!fields[2].contains(" ")) {
-	                		
-	                		
-//	                		Integer currID = Integer.parseInt(fields[2]);
-//	                	
-//	                		for(int j = 0; j < catalog.size();j++) {
-//	                			if(currID == catalog.get(j).getId()) {
-//	                				tempList.add(catalog.get(j));
-//	                			}
-//	                		}
-	                		
-	                	//}
-	                	//else {
-
-	                		
 	                		String[] ownedBooks  = fields[2].split("\\s");
 	                		//System.out.println(ownedBooks);
 	                		for(int i = 0;i < ownedBooks.length;i++) {
@@ -163,17 +138,18 @@ public class LibraryCatalog {
 		return usersFromFiles;
 	}
 	
+	// Return list of books
 	public List<Book> getBookCatalog() {
 		return this.catalog;
 	}
+	// Return list of users
 	public List<User> getUsers() {
 		return this.users;
 	}
 	
-	// HELPER METHOD (Return a string containing all books
+	// HELPER METHOD. Return a string containing all books joined by their id and their toString method
 	public String allBooks() {
-		String books = ""; //= new String[catalog.size()];
-		
+		String books = ""; 
 		for(int i = 0; i < this.catalog.size(); i++) {
 			books += this.catalog.get(i).getId() + " " + this.catalog.get(i).toString() + "\n";
 		}
@@ -182,11 +158,26 @@ public class LibraryCatalog {
 		
 	}
 	
+	// Method that adds book to the list of books
+	
+	/**
+	 *  Method that adds a book to the list of books
+	 *  
+	 *  @param Title of book
+	 *  @param Title of author
+	 *  @param Title of genre
+	 */
 	public void addBook(String title, String author, String genre) {
 		LocalDate date = LocalDate.of(2023, 9, 15);
 		Book temp = new Book(catalog.size()+1,title,author,genre,date,false);
 		this.catalog.add(temp);
 	}
+	
+	/**
+	 *  Method that removes a book to the list of books
+	 *  
+	 *  @param id of book
+	 */
 	public void removeBook(int id) {
 		for(int i = 0; i < catalog.size();i++) {
 			int bookIdToRemove = catalog.get(i).getId();
@@ -199,6 +190,17 @@ public class LibraryCatalog {
 		}
 		
 	}	
+	
+	/**
+	 *  Method that checks if a book is checked out.
+	 *  
+	 *  If it does not happen to be checked out,
+	 *  it's set as checked out and it's last check out
+	 *  date is set to the current date (9-15-23)
+	 *  
+	 *  @param id of book
+	 */
+	
 	public boolean checkOutBook(int id) {
 		
 		for(int i = 0; i < catalog.size(); i++) {
@@ -213,6 +215,19 @@ public class LibraryCatalog {
 		return false;
 	}
 	
+	/**
+	 *  Method that returns a book.
+	 *  
+	 *  If it happens to be checked out,it's able to
+	 *  be returned and method returns true
+	 *  otherwise, book cannot be returned and
+	 *  returns false
+	 *  
+	 *  
+	 *  
+	 *  @param id of book
+	 */
+	
 	
 	public boolean returnBook(int id) {
 		for(int i = 0; i < catalog.size();i++) {
@@ -224,6 +239,18 @@ public class LibraryCatalog {
 		}
 		return false;
 	}
+	
+	// Method that verifies if a book is available for check out or not
+	
+	
+	/**
+	 *  Method that checks if a book is available to be
+	 *  picked out
+	 *  
+	 *  If it does not happen to be checked out, return true
+	 *  If it happens to be checked out, it's unavailable and we return false
+	 *  @param id of book
+	 */
 	
 	public boolean getBookAvailability(int id) {
 		
@@ -238,7 +265,16 @@ public class LibraryCatalog {
 		
 	}
 	
-
+	// Counts the books on the catalog that have the same
+	// title as the one passed as a parameter
+	
+	/**
+	 *  Method that counts the amount of books with
+	 *  the same title as the parameter title
+	 * 
+	 *  @param title of book
+	 */
+	
 	public int bookCount(String title) {
 		int counter = 0;
 		
@@ -252,6 +288,13 @@ public class LibraryCatalog {
 	
 	}
 	
+	
+	/**
+	 *  Method that counts the amount of books with
+	 *  the same genre as the parameter title
+	 * 
+	 *  @param title of book
+	 */
 	public int genreCount(String genre) {
 		int counter = 0;
 		
@@ -265,8 +308,20 @@ public class LibraryCatalog {
 	
 	}
 	
+	
+	/**
+	 * 
+	 *  Method that generates a report of the current amount
+	 *  of books and users, sharing information such as the total
+	 *  amount that users owe, the amount of books of different genres
+	 *  and total amount of books.
+	 *  
+	 *  Also writes to a file called "report.txt" in the
+	 *  report folder.
+	 * 
+	 */
+	
 	public void generateReport() throws IOException {
-//
 		String output = "\t\t\t\tREPORT\n\n";
 		output += "\t\tSUMMARY OF BOOKS\n";
 		output += "GENRE\t\t\t\t\t\tAMOUNT\n";
@@ -307,6 +362,12 @@ public class LibraryCatalog {
 		 * PLACE CODE HERE
 		 */
 		
+		
+		// 
+		
+		
+		
+		// Here, every book is printed using its toString method
 		int counterCheckedOut = 0;
 		
 		for(int i = 0; i < this.catalog.size(); i++) {
@@ -343,7 +404,7 @@ public class LibraryCatalog {
 		
 
 		
-		
+		// Here, every user that owes money is printed 
 		float totalDue = 0;
 		
 		for(int i = 0; i < this.users.size();i++) {
@@ -380,8 +441,11 @@ public class LibraryCatalog {
 		 * 
 		 * PLACE CODE HERE!!
 		 */
-//		
-
+		
+		// Explain TODO
+		
+		
+		// In the following
         BufferedWriter bw = new BufferedWriter(new FileWriter("./report/report.txt"));
         bw.write(output);
         bw.close();
@@ -398,6 +462,9 @@ public class LibraryCatalog {
 	 * You are not required to implement these, but they can be useful for
 	 * other parts of the project.
 	 */
+	
+	// Implemented searchForBook method. Method returns a
+	// book filtered with a specified value.
 	public List<Book> searchForBook(FilterFunction<Book> func) {
 		List<Book> newBooks = new ArrayList<>();
 		
@@ -409,6 +476,8 @@ public class LibraryCatalog {
 		return newBooks;
 	}
 	
+	// Implemented searchForUsers method. Method returns a
+	// user filtered with a specified value.
 	public List<User> searchForUsers(FilterFunction<User> func) {
 		 List<User> newBooks = new ArrayList<>();
 		 

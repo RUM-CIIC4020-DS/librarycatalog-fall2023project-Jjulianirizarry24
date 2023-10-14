@@ -11,8 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 public class Frame extends JFrame {
-//	JButton buttonAdd;
-//	JTextField textFieldAdd;
+
 		Frame(){
 			this.setLayout(new FlowLayout());;
 			this.setTitle("Library User Interface");

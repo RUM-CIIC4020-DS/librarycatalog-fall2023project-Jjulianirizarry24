@@ -19,16 +19,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import interfaces.List;
-/*
+
  
- 
-Create a class called LibraryGUI in the main package and implement a user interface for the 
-project that can do the following:
-• Can add books to the library.
-• Can remove books from the library.
-• Can Display the List of books currently in the library.
-  
- * */
+
+
 public class LibraryGUI implements ActionListener{
     LibraryCatalog lc;
 	JButton buttonAdd;
@@ -39,7 +33,8 @@ public class LibraryGUI implements ActionListener{
 
 
     
-
+// Constructor
+	
     public LibraryGUI() {
         try {
             lc = new LibraryCatalog();
@@ -78,7 +73,7 @@ public class LibraryGUI implements ActionListener{
             e.printStackTrace();
         }
         
-
+    }
 
     public static void main(String[] args) {
         LibraryGUI libraryUI = new LibraryGUI();
@@ -88,6 +83,8 @@ public class LibraryGUI implements ActionListener{
 
 
 
+   // This method is activated when a button
+   // is pressed in the GUI
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -128,7 +125,7 @@ public class LibraryGUI implements ActionListener{
 
 
 
-
+    
 
 
 }

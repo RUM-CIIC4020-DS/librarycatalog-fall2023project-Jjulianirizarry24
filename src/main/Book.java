@@ -2,8 +2,15 @@ package main;
 
 import java.time.LocalDate;
 
+/**
+ * Book class
+ *
+ * @author Jose Irizarry
+ */
+
 public class Book {
 	
+
 	int id;
 	String title;
 	String author;
@@ -11,9 +18,10 @@ public class Book {
 	LocalDate date;
 	Boolean checkOut;
 	
-	
+	// Default Constructor
     public Book(){}
     
+    // Book Constructor
 	public Book(int id, String title, String author, String genre, LocalDate date, Boolean checkOut){
 		this.id = id;
 		this.title = title;
@@ -24,46 +32,68 @@ public class Book {
 	}
 	
 
-	
+	// Returns ID
 	public int getId() {
 		return id;
 	}
+	// Updates ID value
 	public void setId(int id) {
 		this.id = id;
 		
 	}
+	
+	// Returns Title
 	public String getTitle() {
 		return this.title;
 	}
+	// Update Title Value
 	public void setTitle(String title) {
 		this.title=title;
 	}
+	
+	// Returns author
 	public String getAuthor() {
 		return this.author;
 	}
+	
+	// Updates author
 	public void setAuthor(String author) {
 		this.author=author;
-		
 	}
+	
+	// Returns genre
 	public String getGenre() {
 		return this.genre;
 	}
+	
+	// Updates genre
 	public void setGenre(String genre) {
 		this.genre=genre;
 		
 	}
+	
+	// Returns the last check out date
 	public LocalDate getLastCheckOut() {
 		return this.date;
 	}
+	
+	// Updates date
 	public void setLastCheckOut(LocalDate lastCheckOut) {
 		this.date=lastCheckOut;
 	}
+	
+	// Returns if the book is checked out or not
 	public boolean isCheckedOut() {
 		return this.checkOut;
 	}
+	
+	// Updates checked out value
 	public void setCheckedOut(boolean checkedOut) {
 		this.checkOut=checkedOut;
 	}
+	
+	
+
 	
 	@Override
 	public String toString() {
@@ -87,10 +117,7 @@ public class Book {
 		 *
 		 *
 		 */
-		
-		//EDGECASE!
-			// What if start date > end date? TODO
-			
+
 
         LocalDate startDate = this.getLastCheckOut(); // Start date
         LocalDate endDate = LocalDate.of(2023, 9, 15);  // End date (inclusive)
