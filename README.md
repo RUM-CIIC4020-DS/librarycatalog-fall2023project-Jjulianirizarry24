@@ -1,8 +1,8 @@
-#Library Project
+# Library Project
 
 
 
-##Features
+## Features
 
 Read Books and users from a csv file
 Add books to catalog
@@ -16,7 +16,7 @@ Generate a report for the current book catalog and calculate information such as
 amount of books of a given genre, total books in the catalog, the amount each
 user owes and the total amount due taking into consideration all of the users. 
 
-##Main Classes:
+## Main Classes:
 
 Book: Saves information of books in catalog
 User: Saves information of people that can take books
@@ -26,7 +26,7 @@ in catalog, and add/remove books.
 
 
 
-##Main methods:
+## Main methods:
 
 addBook(title, author, genre): Add a book to catalog
 removeBook(id): Remove a book
